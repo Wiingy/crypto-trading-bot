@@ -8,6 +8,10 @@
             "key": null,
             "secret": null
         },
+        "bitmex_testnet": {
+            "key": null,
+            "secret": null
+        },
         "binance": {
             "key": null,
             "secret": null
