@@ -36,7 +36,7 @@ x.forEach((pair) => {
 
 // bitmex
 let y = [
-    'XBTUSD', 'ETHUSD'
+    'XBTUSD', 'XRPH19'
 ]
 
 y.forEach((pair) => {
@@ -82,7 +82,7 @@ y.forEach((pair) => {
 
 // bitmex testnet
 let l = [
-    'XBTUSD', 'ETHUSD'
+    'XBTUSD', 'XRPH19'
 ]
 
 l.forEach((pair) => {
