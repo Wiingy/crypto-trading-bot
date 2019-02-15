@@ -1,0 +1,154 @@
+var c = module.exports = {}
+
+c.symbols = []
+
+// bitmex
+let y = [
+    'XBTUSD', 'ETHUSD', 'ADAH19', 'TRXH19', 'XRPH19', 'LTCH19', 'EOSH19', 'BCHH19'
+]
+
+let trading = {
+    "XBTUSD": 1,
+    "ETHUSD": 1,
+    "XRPH19": 3,
+    "TRXH19": 60,
+    "ADAH19": 30,
+    "EOSH19": 1,
+}
+
+y.forEach((pair) => {
+    let cfg = {
+        'symbol': pair,
+        'periods': ['1m', '15m', '1h', '5m'],
+        'exchange': 'bitmex',
+        'state': 'watch',
+        'watchdogs': [],
+        'extra': {
+            'bitmex_leverage': 5,
+        },
+        'strategies': [
+            {
+                'strategy': 'cci',
+                'options': {
+                    'period': '15m'
+                }
+            },
+            {
+                'strategy': 'obv_pump_dump'
+            },
+            {
+                'strategy': 'macd',
+                'options': {
+                    'period': '1h'
+                }
+            }
+        ]
+    }
+
+    if (pair in trading) {
+        cfg['watchdogs'].push({
+            'name': 'risk_reward_ratio',
+            'target_percent': 1.5,
+            'stop_percent': 0.7,
+        })
+
+        cfg['trade'] = {
+            'capital': trading[pair],
+            'signal_slowdown_minutes': 15,
+            'strategies': [
+                //{
+                //    'strategy': 'cci',
+                //    'options': {
+                //        'period': '15m',
+                //    }
+                //},
+                {
+                    'strategy': 'pivot_reversal_strategy',
+                    'options': {
+                        'period': '15m',
+                    }
+                }
+            ]
+        }
+    }
+
+    c.symbols.push(cfg)
+})
+
+// bitmex testnet
+let l = [
+        'XBTUSD', 'ETHUSD', 'ADAH19', 'TRXH19', 'XRPH19', 'LTCH19', 'EOSH19', 'BCHH19'
+]
+
+let trading = {
+    "XBTUSD": 1,
+    "ETHUSD": 1,
+    "XRPH19": 3,
+    "TRXH19": 60,
+    "ADAH19": 30,
+    "EOSH19": 1,
+}
+
+l.forEach((pair) => {
+    let cfg = {
+        'symbol': pair,
+        'periods': ['1m', '15m', '1h', '5m'],
+        'exchange': 'bitmex',
+        'state': 'watch',
+        'watchdogs': [],
+        'extra': {
+            'bitmex_leverage': 25,
+        },
+        'strategies': [
+            {
+                'strategy': 'cci',
+                'options': {
+                    'period': '15m'
+                }
+            },
+            {
+                'strategy': 'obv_pump_dump'
+            },
+            {
+                'strategy': 'macd',
+                'options': {
+                    'period': '1h'
+                }
+            }
+        ]
+    }
+
+    if (pair in trading) {
+        cfg['watchdogs'].push({
+            'name': 'risk_reward_ratio',
+            'target_percent': 1.5,
+            'stop_percent': 0.7,
+        })
+
+        cfg['trade'] = {
+            'capital': trading[pair],
+            'signal_slowdown_minutes': 15,
+            'strategies': [
+                {
+                    'strategy': 'cci',
+                    'options': {
+                        'period': '15m',
+                    }
+                },
+                {
+                    'strategy': 'macd',
+                    'options': {
+                        'period': '1h',
+                    }
+                {
+                    'strategy': 'pivot_reversal_strategy',
+                    'options': {
+                        'period': '15m',
+                    }
+                }
+            ]
+        }
+    }
+
+    c.symbols.push(cfg)
+})
